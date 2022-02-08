@@ -1,0 +1,22 @@
+[
+  {
+    "model": "characters.equipment",
+    "pk": 1,
+    "fields": {
+        "name": "Wooden sword",
+        "dice_sides": 1,
+        "number_of_dice": 1
+    }
+  },
+  {
+    "model": "encounters.monster",
+    "pk": 1,
+    "fields": {
+        "name": "Training dummy",
+        "index": "training-dummy",
+        "armor_class": 1,
+        "hit_points": 20,
+        "weapon_id": 1
+    }
+  }
+]

@@ -1,8 +1,10 @@
+from django.http import HttpResponse
 from rest_framework import viewsets
-from rest_framework import permissions
+from rest_framework.decorators import action
 
 from characters.models import Character, Equipment
 from characters.serializers import CharacterSerializer, EquipmentSerializer
+from characters.utils import sync_equipment
 
 
 class CharacterViewSet(viewsets.ModelViewSet):
@@ -13,7 +15,12 @@ class CharacterViewSet(viewsets.ModelViewSet):
 
 
 class EquipmentViewSet(viewsets.ModelViewSet):
-    """Displays character details."""
+    """Displays equipment details."""
 
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
+
+    @action(methods=['get'], detail=False)
+    def sync_gear(self, request):
+        sync_equipment()
+        return HttpResponse("Success", 200)

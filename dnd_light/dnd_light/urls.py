@@ -19,10 +19,13 @@ from django.urls import path, include
 from rest_framework import routers
 
 from characters import views as character_views
+from encounters import views as encounter_views
 
 router = routers.DefaultRouter()
 router.register(r"characters", character_views.CharacterViewSet)
 router.register(r"equipment", character_views.EquipmentViewSet)
+router.register(r"monsters", encounter_views.MonsterViewSet)
+router.register(r"encounter", encounter_views.PlayOutEncounter, basename='encounter')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
