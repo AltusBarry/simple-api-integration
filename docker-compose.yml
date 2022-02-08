@@ -1,0 +1,12 @@
+version: "3.9"
+services:
+  api:
+    image: python:3.8
+    volumes:
+      - "./dnd_light:/dnd_light"
+    working_dir:
+        /dnd_light
+    ports:
+     - "8000:8000"
+    command: sh -c 'pip install -r requirements.txt && python manage.py migrate && python manage.py loaddata fixtures.json && python manage.py runserver 0.0.0.0:8000'
+
