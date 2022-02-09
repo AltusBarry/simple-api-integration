@@ -28,10 +28,11 @@ Urls of interest:
         Fetches a random monster from an external api and pits the indicated character against it.
 
 
-Endpoints
----------
+# Endpoints
 
-    # Character endpoint
+Character endpoint
+------------------
+
     http://localhost:8000/characters/
     GET example: [
         {
@@ -63,7 +64,9 @@ Endpoints
         "weapon": "http://localhost:8000/equipment/1/"
     }
 
-    # Equipment endpoint
+Equipment endpoint
+------------------
+
     http://localhost:8000/equipment/
     GET example: [
         {
@@ -79,9 +82,65 @@ Endpoints
             "number_of_dice": 1
         },
     ]
+
+Endpoint to trigger gear sync
+-----------------------------
+
     http://localhost:8000/equipment/sync_gear/
+    GET example: {"success": "Sync completed"}
+
+Monster endpoint
+----------------
+
     http://localhost:8000/monsters/
+    GET example: [
+        {
+            "name": "Training dummy",
+            "armor_class": 1,
+            "hit_points": 20
+        },
+        {
+            "name": "Giant Poisonous Snake",
+            "armor_class": 14,
+            "hit_points": 11
+        }
+    ]
+
+Encounter endpoint
+------------------
+
     http://localhost:8000/encounters/<hero_id>/
+    GET example: {
+    "hero":"Peanut",
+    "monster":"Giant Poisonous Snake",
+    "log":[
+        "Peanut hit the Giant Poisonous Snake for 1 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 1 damage.",
+        "Giant Poisonous Snake hit Peanut for 2 damage.",
+        "Peanut hit the Giant Poisonous Snake for 1 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 0 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 0 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 0 damage.",
+        "Giant Poisonous Snake hit Peanut for 6 damage.",
+        "Peanut hit the Giant Poisonous Snake for 1 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 0 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 1 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 0 damage.",
+        "Giant Poisonous Snake hit Peanut for 4 damage.",
+        "Peanut hit the Giant Poisonous Snake for 1 damage.",
+        "Giant Poisonous Snake hit Peanut for 0 damage.",
+        "Peanut hit the Giant Poisonous Snake for 0 damage.",
+        "Giant Poisonous Snake hit Peanut for 6 damage.",
+        "The winner is the Giant Poisonous Snake"
+        ]
+    }
 
 
 Testing
