@@ -9,20 +9,34 @@ class Migration(migrations.Migration):
     initial = True
 
     dependencies = [
-        ('characters', '0001_initial'),
+        ("characters", "0001_initial"),
     ]
 
     operations = [
         migrations.CreateModel(
-            name='Monster',
+            name="Monster",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256)),
-                ('index', models.SlugField()),
-                ('url', models.CharField(max_length=256)),
-                ('armor_class', models.PositiveSmallIntegerField()),
-                ('hit_points', models.PositiveSmallIntegerField()),
-                ('weapon', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='characters.equipment')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256)),
+                ("index", models.SlugField()),
+                ("url", models.CharField(max_length=256)),
+                ("armor_class", models.PositiveSmallIntegerField()),
+                ("hit_points", models.PositiveSmallIntegerField()),
+                (
+                    "weapon",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="characters.equipment",
+                    ),
+                ),
             ],
         ),
     ]

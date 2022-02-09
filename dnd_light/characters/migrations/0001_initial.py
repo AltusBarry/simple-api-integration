@@ -9,27 +9,62 @@ class Migration(migrations.Migration):
 
     initial = True
 
-    dependencies = [
-    ]
+    dependencies = []
 
     operations = [
         migrations.CreateModel(
-            name='Equipment',
+            name="Equipment",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256)),
-                ('dice_sides', models.PositiveSmallIntegerField()),
-                ('number_of_dice', models.PositiveSmallIntegerField()),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256)),
+                ("dice_sides", models.PositiveSmallIntegerField()),
+                ("number_of_dice", models.PositiveSmallIntegerField()),
             ],
         ),
         migrations.CreateModel(
-            name='Character',
+            name="Character",
             fields=[
-                ('id', models.BigAutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
-                ('name', models.CharField(max_length=256)),
-                ('armour_class', models.PositiveSmallIntegerField(validators=[django.core.validators.MaxValueValidator(15)])),
-                ('total_health_points', models.PositiveSmallIntegerField(validators=[django.core.validators.MaxValueValidator(20)])),
-                ('weapon', models.ForeignKey(on_delete=django.db.models.deletion.PROTECT, to='characters.equipment')),
+                (
+                    "id",
+                    models.BigAutoField(
+                        auto_created=True,
+                        primary_key=True,
+                        serialize=False,
+                        verbose_name="ID",
+                    ),
+                ),
+                ("name", models.CharField(max_length=256)),
+                (
+                    "armour_class",
+                    models.PositiveSmallIntegerField(
+                        validators=[
+                            django.core.validators.MaxValueValidator(15)
+                        ]
+                    ),
+                ),
+                (
+                    "total_health_points",
+                    models.PositiveSmallIntegerField(
+                        validators=[
+                            django.core.validators.MaxValueValidator(20)
+                        ]
+                    ),
+                ),
+                (
+                    "weapon",
+                    models.ForeignKey(
+                        on_delete=django.db.models.deletion.PROTECT,
+                        to="characters.equipment",
+                    ),
+                ),
             ],
         ),
     ]
