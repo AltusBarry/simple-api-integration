@@ -22,5 +22,5 @@ class EquipmentViewSet(viewsets.ModelViewSet):
 
     @action(methods=["get"], detail=False)
     def sync_gear(self, request):
-        sync_equipment()
-        return JsonResponse({"success": "Sync completed"})
+        success = sync_equipment()
+        return JsonResponse({"success": success})
