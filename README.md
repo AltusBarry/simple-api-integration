@@ -1,5 +1,5 @@
 # simple-api-integration
-This is a Django + DRF project
+This is a rought and tumble Django + DRF project
 
 Quick start
 -----------
