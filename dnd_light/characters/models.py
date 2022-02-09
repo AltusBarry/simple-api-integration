@@ -1,12 +1,19 @@
 from django.db import models
-
-# Create your models here.
+from django.core.validators import MaxValueValidator
 
 
 class Character(models.Model):
     name = models.CharField(max_length=256)
-    armour_class = models.PositiveSmallIntegerField()
-    total_health_points = models.PositiveSmallIntegerField()
+    armour_class = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(15),
+        ]
+    )
+    total_health_points = models.PositiveSmallIntegerField(
+        validators=[
+            MaxValueValidator(20),
+        ]
+    )
     weapon = models.ForeignKey("Equipment", on_delete=models.PROTECT)
 
 

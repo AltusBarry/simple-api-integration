@@ -4,7 +4,7 @@
     http://localhost:8000/equipment/
     http://localhost:8000/equipment/sync_gear/
     http://localhost:8000/monsters/
-    http://localhost:8000/encounter/<hero_id>/
+    http://localhost:8000/encounters/<hero_id>/
 
 
 cd dnd_light/
