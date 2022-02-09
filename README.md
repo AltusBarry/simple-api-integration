@@ -10,6 +10,7 @@ Then run:
 The compose file exposes the drf endpoints on http://localhost:8000
 
 We have no frontend apart from the default drf interactive api views. No authentication was added.
+Database is a basic sqlite one located in the dnd_light project dir, it gets mounted when using compose, allowing data to persist between container restarts.
 
 Urls of interest:
 -----------------
