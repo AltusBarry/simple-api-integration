@@ -1,4 +1,4 @@
-from django.http import HttpResponse
+from django.http import HttpResponse, JsonResponse
 from rest_framework import viewsets
 from rest_framework.decorators import action
 
@@ -23,4 +23,4 @@ class EquipmentViewSet(viewsets.ModelViewSet):
     @action(methods=["get"], detail=False)
     def sync_gear(self, request):
         sync_equipment()
-        return HttpResponse("Success", 200)
+        return JsonResponse({"success": "Sync completed"})
