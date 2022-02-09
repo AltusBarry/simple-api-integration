@@ -1,4 +1,9 @@
 # simple-api-integration
+This is a Django + DRF project
+
+Quick start
+-----------
+
 Go to the repo root, same directory as this README is located in.
 
 Ensure docker compose is installed.
@@ -11,6 +16,16 @@ The compose file exposes the drf endpoints on http://localhost:8000
 
 We have no frontend apart from the default drf interactive api views. No authentication was added.
 Database is a basic sqlite one located in the dnd_light project dir, it gets mounted when using compose, allowing data to persist between container restarts.
+
+Source code of note is all located in the simple-api-integration/dnd_light directory
+
+    characters/
+    dnd_light/
+    encounters/
+    fixtures.json
+    manage.py
+    requirements.txt
+
 
 Urls of interest:
 -----------------
