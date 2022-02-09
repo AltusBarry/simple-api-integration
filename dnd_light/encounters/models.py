@@ -19,8 +19,3 @@ class Monster(models.Model):
         # small.
         self.weapon = Equipment.objects.order_by("?").first()
         super().save()
-
-
-# class Encounter(models.Model):
-#     hero =
-#     monster =

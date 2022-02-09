@@ -24,7 +24,7 @@ def sync_equipment():
     for result in response.json()["results"]:
         dice = result.get("damage_dice")
 
-        # If the key is missing an empty string or a specific case we don't
+        # If the key is missing, an empty string or a specific case we don't
         # cover atm, skip the item.
         if not dice or "d" not in dice or not result.get("name"):
             continue
