@@ -25,7 +25,9 @@ router = routers.DefaultRouter()
 router.register(r"characters", character_views.CharacterViewSet)
 router.register(r"equipment", character_views.EquipmentViewSet)
 router.register(r"monsters", encounter_views.MonsterViewSet)
-router.register(r"encounter", encounter_views.PlayOutEncounter, basename='encounter')
+router.register(
+    r"encounters", encounter_views.PlayOutEncounter, basename="encounters"
+)
 
 urlpatterns = [
     path("admin/", admin.site.urls),

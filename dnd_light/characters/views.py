@@ -20,7 +20,7 @@ class EquipmentViewSet(viewsets.ModelViewSet):
     queryset = Equipment.objects.all()
     serializer_class = EquipmentSerializer
 
-    @action(methods=['get'], detail=False)
+    @action(methods=["get"], detail=False)
     def sync_gear(self, request):
         sync_equipment()
         return HttpResponse("Success", 200)

@@ -3,6 +3,8 @@ import requests
 import responses
 
 from django.test import TestCase
+from rest_framework.reverse import reverse
+from rest_framework.test import APIClient, APIRequestFactory
 
 from encounters.utils import MonsterApi
 from characters.models import Character, Equipment
@@ -85,19 +87,80 @@ def mocked_get(url, *args, **kwargs):
 
 
 class TestEncounters(TestCase):
-    fixtures = ['fixtures.json']
+    client_class = APIClient
+    fixtures = ["fixtures.json"]
 
+    @mock.patch.object(MonsterApi, "roll", return_value=20)
     @mock.patch("requests.get", side_effect=mocked_get)
-    def test_monster_api_util(self, mocked_get):
+    def test_monster_api_util(self, mocked, mocked_2):
         hero = Character.objects.create(
             name="Jerry",
             armour_class=10,
             total_health_points=20,
             weapon=Equipment.objects.first(),
-
         )
         monster_api = MonsterApi(hero)
-        self.assertEqual(monster_api.monster.id, 2)
-        self.assertEqual(monster_api.monster.name, "Axe Beak")
+        monster = monster_api.monster
+        self.assertEqual(monster.id, 2)
+        self.assertEqual(monster.name, "Axe Beak")
         results = monster_api.fight()
-        import pdb; pdb.set_trace()
+        self.assertDictEqual(
+            results,
+            {
+                "hero": "Jerry",
+                "monster": "Axe Beak",
+                "log": [
+                    "Jerry hit the Axe Beak for 20 damage.",
+                    "The winner is Jerry",
+                ],
+            },
+        )
+
+    @mock.patch.object(MonsterApi, "roll", return_value=5)
+    @mock.patch("requests.get", side_effect=mocked_get)
+    def test_encounter_api(self, mocked, mocked_2):
+        hero = Character.objects.create(
+            name="Paul",
+            armour_class=10,
+            total_health_points=20,
+            weapon=Equipment.objects.first(),
+        )
+        url = reverse("encounters-detail", kwargs={"pk": hero.id})
+        response = self.client.get(url)
+        self.assertDictEqual(
+            response.json(),
+            {
+                "hero": "Paul",
+                "monster": "Axe Beak",
+                "log": [
+                    "Paul hit the Axe Beak for 5 damage.",
+                    "Axe Beak hit Paul for 5 damage.",
+                    "Paul hit the Axe Beak for 5 damage.",
+                    "Axe Beak hit Paul for 5 damage.",
+                    "Paul hit the Axe Beak for 5 damage.",
+                    "Axe Beak hit Paul for 5 damage.",
+                    "Paul hit the Axe Beak for 5 damage.",
+                    "The winner is Paul",
+                ],
+            },
+        )
+        hero = Character.objects.create(
+            name="Pete",
+            armour_class=3,
+            total_health_points=5,
+            weapon=Equipment.objects.first(),
+        )
+        url = reverse("encounters-detail", kwargs={"pk": hero.id})
+        response = self.client.get(url)
+        self.assertDictEqual(
+            response.json(),
+            {
+                "hero": "Pete",
+                "monster": "Axe Beak",
+                "log": [
+                    "Pete hit the Axe Beak for 5 damage.",
+                    "Axe Beak hit Pete for 5 damage.",
+                    "The winner is the Axe Beak",
+                ],
+            },
+        )

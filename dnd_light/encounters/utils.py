@@ -10,6 +10,12 @@ from encounters.models import Monster
 
 
 class MonsterApi:
+    """Helper class that tries to, synchronously, fetch data from an API.
+
+    A bit overloaded as it also does work with that data, should ideally only
+    have been used to fetch and persist data.
+    """
+
     base_url = "https://www.dnd5eapi.co"
     hero = None
 
@@ -81,25 +87,38 @@ class MonsterApi:
         return damage
 
     def fight(self):
-        """ Fairly copy pasty, not a priority to fix.
-        """
+        """Fairly copy pasty, not a priority to fix."""
         monster_hp = self.monster.hit_points
         hero_hp = self.hero.total_health_points
         fight_log = []
         response = {
-            "hero": self.hero.name, "monster": self.monster.name, "log": fight_log
+            "hero": self.hero.name,
+            "monster": self.monster.name,
+            "log": fight_log,
         }
         winner = None
         while hero_hp > 0 or monster_hp > 0:
-            damage = self.roll(self.hero.weapon.dice_sides, self.hero.weapon.number_of_dice, self.monster.armor_class)
+            damage = self.roll(
+                self.hero.weapon.dice_sides,
+                self.hero.weapon.number_of_dice,
+                self.monster.armor_class,
+            )
             monster_hp -= damage
-            fight_log.append(f"{self.hero.name} hit the {self.monster.name} for {damage} damage.")
+            fight_log.append(
+                f"{self.hero.name} hit the {self.monster.name} for {damage} damage."
+            )
             if monster_hp < 1:
                 fight_log.append(f"The winner is {self.hero.name}")
                 break
-            damage = self.roll(self.monster.weapon.dice_sides, self.monster.weapon.number_of_dice, self.hero.armour_class)
+            damage = self.roll(
+                self.monster.weapon.dice_sides,
+                self.monster.weapon.number_of_dice,
+                self.hero.armour_class,
+            )
             hero_hp -= damage
-            fight_log.append(f"{self.monster.name} hit {self.hero.name} for {damage} damage.")
+            fight_log.append(
+                f"{self.monster.name} hit {self.hero.name} for {damage} damage."
+            )
             if hero_hp < 1:
                 fight_log.append(f"The winner is the {self.monster.name}")
                 break
